@@ -29,7 +29,7 @@ defmodule Hello2.Auth.User do
     end
   end
 
-  def ensure_uuid(changeset) do
+  defp ensure_uuid(changeset) do
     case changeset do
       %Ecto.Changeset{valid?: true, changes: %{id: _}} -> changeset
       %Ecto.Changeset{valid?: true} ->

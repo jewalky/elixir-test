@@ -14,7 +14,10 @@ defmodule Hello2.Auth do
     hashed_password = User.hash_password(password)
     query = from u in User,
       where: u.password == ^hashed_password and u.user_name == ^user_name
-    Repo.all(query)
+    case Repo.all(query) do
+      [user|_] -> {:ok, user}
+      _ -> {:error, "Invalid credentials"}
+    end
   end
 
 end

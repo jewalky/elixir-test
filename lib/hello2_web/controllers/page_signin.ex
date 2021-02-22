@@ -1,6 +1,6 @@
 defmodule Hello2Web.PageSignin do
   use Hello2Web, :controller
-  import Hello2.Auth
+  alias Hello2.Auth
 
   def index(conn, _params) do
     render(conn, "signin.html", csrf_token: get_csrf_token())
@@ -10,9 +10,12 @@ defmodule Hello2Web.PageSignin do
     case _params do
 
       %{"user_name" => user_name, "password" => password} ->
-        user = Auth.signin_user(_params)
-        IO.inspect(user)
-        redirect(conn, to: "/signin")
+        case Auth.signin_user(%{user_name: user_name, password: password}) do
+          {:ok, user} ->
+            put_session(conn, :user_id, user.id)
+
+          {:error, error} -> render(conn, "signin.html", csrf_token: get_csrf_token(), error: error)
+        end
 
       _ -> render(conn, "signin.html", csrf_token: get_csrf_token(), error: "Bad request")
 

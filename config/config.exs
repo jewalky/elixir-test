@@ -11,7 +11,7 @@ config :hello2,
   ecto_repos: [Hello2.Repo]
 
 config :hello2, Hello2.Repo,
-  migration_primary_key: [name: :id, type: :binary_id]
+  migration_primary_key: [name: :id, type: :binary_id, autogenerate: true]
 
 # Configures the endpoint
 config :hello2, Hello2Web.Endpoint,

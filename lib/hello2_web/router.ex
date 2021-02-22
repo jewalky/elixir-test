@@ -18,6 +18,8 @@ defmodule Hello2Web.Router do
     pipe_through :browser
 
     live "/", PageLive, :index
+    get "/signin", PageSignin, :index
+    post "/signin", PageSignin, :process
     live "/test", PageTest
   end
 

@@ -23,7 +23,7 @@ config :hello2, Hello2Web.Endpoint,
   check_origin: false,
   watchers: [
     node: [
-      "node_modules/webpack/bin/webpack.js",
+      "packer.js",
       "--mode",
       "development",
       "--watch-stdin",

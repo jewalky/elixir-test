@@ -35,6 +35,7 @@ defmodule Hello2Web.PageChat do
   defp convert_post_to_visual(post) do
     userinfo =
       case Auth.fetch_user(post.user_id) do
+
         {:ok, user} ->
           %{
             "id" => user.id,
@@ -47,6 +48,7 @@ defmodule Hello2Web.PageChat do
 
         {:error, _} ->
           %{"id" => nil, "name" => "Deleted User [#{post.user_id}]"}
+
       end
 
     %{
@@ -96,64 +98,50 @@ defmodule Hello2Web.PageChat do
   def render(assigns) do
     ~L"""
 
-    <style>
-      .posts-container {
-        background: #f7f7f7;
-      }
-      .posts-container .post {
-        display: flex;
-      }
-      .posts-container .post > * {
-        margin-right: 24px;
-      }
-      .posts-container .post .date {
-        font-style: italic;
-      }
-      .posts-container .post .user {
-        font-weight: bold;
-      }
-    </style>
+    <div class="page-chat">
 
-    <p>
-      Signed in as user:
-      <strong>
-      <%=
-        case @user do
-          nil -> ""
-          _ -> @user.user_name
-        end
-      %>
-      </strong>
-      <%= if @user == nil do %>
-      [<a href="/signin">Sign in</a>]
-      <% else %>
-      [<a href="/signout">Sign out</a>]
-      <% end %>
-    </p>
-
-    <%= if @user != nil do %>
-    <form phx-submit="create-post">
-        <label>Your message: <input type="text" name="text"></label>
-        <input type="submit" value="Submit">
-    </form>
-    <% else %>
-    <p>Please sign in to post messages.</p>
-    <% end %>
-
-    <div class="posts-container">
-        <%= for post <- @posts do %>
-          <div class="post">
-            <div class="date">
-              <%= post["date"] %>
-            </div>
-            <div class="user">
-              <%= post["user"]["name"] %>
-            </div>
-            <div class="text">
-              <%= post["text"] %>
-            </div>
-          </div>
+      <p>
+        Signed in as user:
+        <strong>
+        <%=
+          case @user do
+            nil -> ""
+            _ -> @user.user_name
+          end
+        %>
+        </strong>
+        <%= if @user == nil do %>
+        [<a href="/signin">Sign in</a>]
+        <% else %>
+        [<a href="/signout">Sign out</a>]
         <% end %>
+      </p>
+
+      <%= if @user != nil do %>
+      <form phx-submit="create-post">
+          <label>Your message: <input type="text" name="text"></label>
+          <input type="submit" value="Submit">
+      </form>
+      <% else %>
+      <p>Please sign in to post messages.</p>
+      <% end %>
+
+      <div class="posts-container">
+          <%= for post <- @posts do %>
+            <div class="post">
+              <div class="date">
+                <%= post["date"] %>
+              </div>
+              <div class="user">
+                <%= post["user"]["name"] %>
+              </div>
+              <div class="text">
+                <%= post["text"] %>
+              </div>
+            </div>
+          <% end %>
+      </div>
+
     </div>
 
     """

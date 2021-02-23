@@ -17,9 +17,10 @@ defmodule Hello2Web.Router do
   scope "/", Hello2Web do
     pipe_through :browser
 
-    live "/", PageLive, :index
+    live "/", PageChat
     get "/signin", PageSignin, :index
     post "/signin", PageSignin, :process
+    get "/signout", PageSignout, :index
     live "/test", PageTest
   end
 

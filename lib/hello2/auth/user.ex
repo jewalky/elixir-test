@@ -24,22 +24,31 @@ defmodule Hello2.Auth.User do
   defp ensure_hashed_password(changeset) do
     case changeset do
       %Ecto.Changeset{valid?: true, changes: %{plain_password: plain_password}} ->
-        put_change(changeset, :password, :crypto.hash(:sha, plain_password) |> Base.encode16(case: :lower))
-      _ -> changeset
+        put_change(
+          changeset,
+          :password,
+          :crypto.hash(:sha, plain_password) |> Base.encode16(case: :lower)
+        )
+
+      _ ->
+        changeset
     end
   end
 
   defp ensure_uuid(changeset) do
     case changeset do
-      %Ecto.Changeset{valid?: true, changes: %{id: _}} -> changeset
+      %Ecto.Changeset{valid?: true, changes: %{id: _}} ->
+        changeset
+
       %Ecto.Changeset{valid?: true} ->
-        put_change(changeset, :id, Ecto.UUID.generate)
-      _ -> changeset
+        put_change(changeset, :id, Ecto.UUID.generate())
+
+      _ ->
+        changeset
     end
   end
 
   def hash_password(password) do
     :crypto.hash(:sha, password) |> Base.encode16(case: :lower)
   end
-
 end

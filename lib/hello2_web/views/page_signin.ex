@@ -15,5 +15,4 @@ defmodule Hello2Web.PageSigninView do
 
     """
   end
-
 end

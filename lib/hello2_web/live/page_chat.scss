@@ -1,0 +1,17 @@
+.page-chat {
+    .posts-container {
+        background: #f7f7f7;
+        .post {
+            display: flex;
+            > * {
+                margin-right: 24px;
+            }
+            .date {
+                font-style: italic;
+            }
+            .user {
+                font-weight: bold;
+            }
+        }
+    }
+}

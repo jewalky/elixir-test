@@ -6,6 +6,8 @@ const TerserPlugin = require('terser-webpack-plugin');
 const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 
+console.log('Webpack is running in', process.cwd())
+
 module.exports = (env, options) => {
   const devMode = options.mode !== 'production';
 

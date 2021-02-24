@@ -67,7 +67,7 @@ cssWatcher
 
 jsWatcher
     .on('add', path => { jsPaths.push(path); scheduleJsChange() })
-    .on('unlink', path => { jsPaths.push(path); scheduleJsChange() })
+    .on('unlink', path => { jsPaths = jsPaths.filter(x => x !== path); scheduleJsChange() })
 
 let watching = null
 let watchingIndex = 0
